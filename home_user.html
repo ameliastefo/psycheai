@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PsycheAI</title>
+  <style>
+    .align {
+      text-align: left;
+      margin-top: 40px;
+      margin-left: 75px;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    .align-h1 {
+      font-size: 3rem;
+    }
+
+    .align-h3 {
+      font-size: 2rem;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .div1 {
+      margin: 0;
+      padding: 0;
+      background-image: url("{{ url_for('static', filename='images/robot.png') }}");
+      background-size: cover;
+      background-position: right;
+      background-position: bottom;
+      background-repeat: no-repeat;
+      color: #002147;
+      font-size: 25px;
+      text-align: center;
+      height: 550px;
+    }
+
+    .papirus {
+      font-family: "Papyrus";
+    }
+
+    .copperplate {
+      font-family: "Copperplate";
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu li {
+      display: inline-block;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #002147;
+      border-bottom: 2px solid #002147;
+      padding-bottom: 5px;
+    }
+
+    .cta-button {
+      background: #009688;
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      background: #00796b;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    .bar {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: black;
+      margin: 5px 0;
+    }
+
+    .main-section {
+      padding: 50px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container1 {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 30%;
+      padding: 20px;
+      background-color: #f9f9f9;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .section h2 {
+      margin-bottom: 20px;
+    }
+
+    .section p {
+      margin-top: 10px;
+    }
+
+    /* Profile cards */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .profile-card img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .profile-info {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .profile-info h4 {
+      margin-bottom: 5px;
+    }
+
+    .rating {
+      font-size: 18px;
+      color: gold;
+    }
+
+    .section2 {
+      height: 280px;
+      width: 250px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    .section3 {
+      height: 280px;
+      width: 280px;
+      border-radius: 10px;
+    }
+
+    .step-number {
+      background-color: #abd7eb;
+      color: white;
+      border-radius: 10%;
+      font-size: 1.5em;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      margin-bottom: 10px;
+    }
+
+    .tips {
+      background-color: #d2ebf3;
+      height: 570px;
+    }
+
+    .h1 {
+      margin: 20px 0;
+      font-size: 2.5em;
+      color: #3a5166;
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 50px;
+      width: 90%;
+      max-width: 800px;
+      padding-left: 100px;
+      padding-top: 20px;
+      margin-left: 15%;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background-color: #f3f8fc;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      color: #3a5166;
+      font-size: 1.2em;
+      transition: transform 0.3s ease;
+      height: 175px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .icon {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    /* Sample icons */
+    .icon-leaf::before {
+      content: "🌱";
+    }
+
+    .icon-meditation::before {
+      content: "🧘";
+    }
+
+    .icon-rainbow::before {
+      content: "🌈";
+    }
+
+    .icon-sun::before {
+      content: "🔆";
+    }
+
+    .icon-heart::before {
+      content: "💖";
+    }
+
+    .icon-flower::before {
+      content: "🌸";
+    }
+
+    .link {
+      text-decoration: none;
+    }
+
+    .div2 {
+      margin-top: 30px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.826);
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      z-index: 1000;
+      display: none;
+    }
+
+    .popup-content {
+      margin-bottom: 20px;
+    }
+
+    .popup .close-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #81bfdc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .popup .close-btn:hover {
+      background-color: #abd7eb;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .container2 {
+      display: flex;
+      background-color: #d2ebf3;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 100px;
+      padding-right: 100px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 545px;
+    }
+
+    .text-section {
+      flex: 1;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 40%;
+    }
+
+    .text-section h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .text-section p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .text-section ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .text-section ul li {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .text-section ul li::before {
+      content: "•";
+      color: black;
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+
+    .text-section a {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #000;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      width: 50%;
+    }
+
+    .text-section a:hover {
+      background-color: #333;
+    }
+
+    .image-section {
+      flex: 1;
+      background-image: url("{{ url_for('static', filename='images/home_psychologist.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      height: 500px;
+    }
+
+    .footer_div2 {
+      text-align: center;
+      padding: 20px;
+      background-color: #e8e8e8;
+      color: #000;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .footer {
+      background-color: #e8e8e8;
+      color: #000;
+      padding-top: 3%;
+      padding-left: 15%;
+      padding-right: 15%;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-column {
+      flex: 1;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-top: 15px;
+    }
+
+    .footer-column ul li a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .footer-column ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-column ul li img {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+
+    .d_logo1 {
+      width: 100px;
+      height: auto;
+    }
+
+    .d_logo2 {
+      width: 250px;
+      height: auto;
+      margin-left: -5px;
+    }
+
+    .text-decoration {
+      text-decoration: none;
+      color: #002147;
+    }
+
+    .text-decoration :hover {
+      color: #002147;
+    }
+
+    .banner {
+      width: 700px;
+      height: auto;
+    }
+
+    .flex1 {
+      background-color: #f2f3f4;
+    }
+
+    .flex1 h1 {
+      text-align: center;
+      color: #002147;
+      padding: 30px 0;
+      font-size: 1.8rem;
+    }
+
+    .containeri .box button {
+      position: absolute;
+      top: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--text);
+      background-color: rgba(81, 133, 206, 0.8);
+      transform: translateY(-50%);
+      z-index: 5;
+      opacity: 0;
+      transition: 0.5s ease-in-out;
+    }
+
+    .containeri .box button:hover {
+      opacity: 1;
+    }
+
+    .containeri .box button.prev {
+      left: 1%;
+    }
+
+    .containeri .box button.next {
+      right: 1%;
+    }
+
+    .containeri {
+      width: 100%;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .box {
+      position: relative;
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
+    }
+
+    .slide {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide-item {
+      min-width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: rgb(241, 250, 253);
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 2em;
+      cursor: pointer;
+      padding: 10px;
+      transform: translateY(-50%);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 1024px) {
+      .section3 {
+        height: 180px;
+        width: 180px;
+      }
+
+      .section2 {
+        height: 195px;
+        width: 190px;
+      }
+
+      .section {
+        padding: 10px;
+      }
+
+      .section2 {
+        height: 200px;
+        width: 205px;
+      }
+
+      .profile-card {
+        margin-top: 15px;
+        padding: 5px;
+        margin-left: -13px;
+        margin-right: -13px;
+      }
+
+      .step-number {
+        font-size: 1.2em;
+        width: 30px;
+        height: 30px;
+      }
+
+      .section h2 {
+        margin-bottom: 10px;
+        font-size: larger;
+      }
+
+      .text-section a {
+        width: 55%;
+      }
+
+      .footer {
+        padding-left: 8%;
+        padding-right: 0%;
+      }
+
+      .container2 {
+        padding-left: 50px;
+        padding-right: 50px;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .div1 {
+        margin: 0;
+        padding: 0;
+        background-image: none;
+        background-color: #D2EBF3;
+        color: #002147;
+        font-size: 25px;
+        text-align: center;
+        height: 500px;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: white;
+        width: 100%;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        padding: 0;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu li {
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .nav-menu li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 15px 20px;
+        color: #333;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: #f0f0f0;
+        color: #002147;
+        border-bottom: none;
+      }
+
+      .container1 {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .section {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .container2 {
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 500px;
+      }
+
+      .text-section {
+        font-size: 1.5rem;
+        margin-top: 50px;
+      }
+
+      .image-section {
+        margin-top: 50px;
+        border-radius: 10px;
+        height: 350px;
+      }
+
+      .text-section a {
+        width: 70%;
+        font-size: 0.9rem;
+      }
+
+      .text-section h1 {
+        font-size: 1.5rem;
+      }
+
+      .text-section p {
+        font-size: 1rem;
+      }
+
+      .text-section ul li {
+        font-size: 0.9rem;
+      }
+
+      .footer_div2 {
+        text-align: center;
+        padding: 20px;
+        background-color: #f2f3f4;
+        color: #000;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .footer {
+        background-color: #f2f3f4;
+        color: #000;
+        padding: 3% 5%;
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+        flex-wrap: wrap;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-column ul li {
+        margin-top: 15px;
+      }
+
+      .footer-column ul li a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .footer-column ul li a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-column ul li img {
+        max-width: 120px;
+        margin-bottom: 10px;
+      }
+
+      .d_logo1 {
+        width: 100px;
+        height: auto;
+      }
+
+      .d_logo2 {
+        width: 250px;
+        height: auto;
+        margin-left: -5px;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-column {
+        width: 100%;
+        text-align: center;
+      }
+
+      .d_logo1,
+      .d_logo2 {
+        display: block;
+        margin: auto;
+      }
+
+      .d_logo1 {
+        width: 95px;
+        height: 33px;
+        margin-top: -47px;
+      }
+
+      .d_logo2 {
+        width: 95px;
+        height: 42px;
+      }
+
+      .footer-column ul {
+        padding-left: 0;
+      }
+
+      .footer-column ul li {
+        display: inline-block;
+        margin: 5px 10px;
+      }
+
+      .div1 {
+        height: 600px;
+      }
+
+      .tips {
+        background-color: #d2ebf3;
+        height: auto;
+      }
+
+      .h1 {
+        margin: 20px 0;
+        font-size: 2.5em;
+        color: #3a5166;
+        text-align: center;
+        padding: 30px 0;
+      }
+
+      .grid-container {
+        display: table-caption;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 50px;
+        width: 152%;
+        max-width: 800px;
+        padding-left: 55px;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        background-color: #f3f8fc;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        color: #3a5166;
+        font-size: 1.2em;
+        transition: transform 0.3s ease;
+        height: 175px;
+        margin-bottom: 20px;
+        margin-left: -27px;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .icon {
+        font-size: 3em;
+        margin-bottom: 10px;
+      }
+
+      /* Sample icons */
+      .icon-leaf::before {
+        content: "🌱";
+      }
+
+      .icon-meditation::before {
+        content: "🧘";
+      }
+
+      .icon-rainbow::before {
+        content: "🌈";
+      }
+
+      .icon-sun::before {
+        content: "🔆";
+      }
+
+      .icon-heart::before {
+        content: "💖";
+      }
+
+      .icon-flower::before {
+        content: "🌸";
+      }
+
+      .link {
+        text-decoration: none;
+      }
+
+      .div2 {
+        margin-top: 30px;
+      }
+
+      .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.826);
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        z-index: 1000;
+        display: none;
+      }
+
+      .popup-content {
+        margin-bottom: 20px;
+      }
+
+      .containeri{
+        padding: 30px 10px;
+      }
+      .popup .close-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #81bfdc;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .popup .close-btn:hover {
+        background-color: #abd7eb;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+      }
+
+      .main-section {
+        padding: 0;
+      }
+
+      .section h2 {
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 1.5rem;
+    margin-top: -40px;
+    margin-left: 49px;
+    width: 300px;}
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="div1">
+    <header>
+      <a href="{{ url_for('user_home1') }}" class="logo">PsycheAI</a>
+      <nav>
+        <ul class="nav-menu">
+          <li>
+            <a class="nav-link" href="{{ url_for('aichat') }}">AI Chat</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{ url_for('psychologists') }}">Psychologists</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{ url_for('messages') }}">Messages</a>
+          </li>
+          <li><a class="nav-link" href="{{ url_for('shop') }}">Shop</a></li>
+          <li>
+            <a class="nav-link" href="{{ url_for('account') }}">Account</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+
+    <section class="main-section">
+      <h1 class="align align-h1">Welcome to PsycheAI</h1>
+      <h3 class="align align-h3">
+        Let's Walk Together on Your Journey <br />to Emotional Well-Being.
+      </h3>
+    </section>
+  </div>
+  <div>
+    <div>
+      <div class="container1">
+        <!-- Section 1: Find Your Psychologist -->
+        <div class="section">
+          <span class="step-number">1</span>
+          <h2>Find your psychologist.</h2>
+          <p>
+            We'll connect you with a licensed psychologist who will
+            understand, support, and guide you towards emotional well-being.
+          </p>
+          <!-- Profile cards -->
+          <div class="profile-card">
+            <img src="{{ url_for('static', filename='images/profile3.jpg') }}" alt="Milena's photo" />
+            <div class="profile-info">
+              <h4>Enxhi</h4>
+              <p>Speaks Albanian (Native), English (Advanced)</p>
+            </div>
+            <div class="rating">★ 4.9</div>
+          </div>
+          <div class="profile-card">
+            <img src="{{ url_for('static', filename='images/profile2.jpg') }}" alt="Tutor 2" />
+            <div class="profile-info">
+              <h4>Arbër</h4>
+              <p>Speaks Albanian (Native), Italian (Advanced)</p>
+            </div>
+            <div class="rating">★ 4.8</div>
+          </div>
+          <div class="profile-card">
+            <img src="{{ url_for('static', filename='images/profile1.jpg') }}" alt="Tutor 3" />
+            <div class="profile-info">
+              <h4>Sara</h4>
+              <p>Speaks French (Native), English (Advanced)</p>
+            </div>
+            <div class="rating">★ 4.7</div>
+          </div>
+        </div>
+
+        <!-- Section 2: Start Learning -->
+        <div class="section">
+          <span class="step-number">2</span>
+          <h2>Start your journey.</h2>
+          <p>
+            Your psychologist will guide you through the initial consultation
+            and create a personalized mental health plan.
+          </p>
+          <img class="section2" src="{{ url_for('static', filename='images/home_videocall.jpg') }}"
+            alt="Tutor's photo" />
+        </div>
+
+        <!-- Section 3: Speak. Read. Write. Repeat. -->
+        <div class="section">
+          <span class="step-number">3</span>
+          <h2>Monitor and improve.</h2>
+          <img class="section3" src="{{ url_for('static', filename='images/collage.png') }}" alt="Smiling persons" />
+          <p>
+            Regular sessions and AI-powered insights will help you track your
+            progress and adjust your mental wellness goals.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips">
+      <h1 class="h1">Tips and Tricks</h1>
+      <div class="grid-container">
+        <div class="card"
+          onclick="showPopup('Mindfulness exercises help anchor you to the present moment, reducing stress and enhancing mental clarity. One effective technique is mindful breathing, where you focus on the sensation of each breath as it enters and leaves your body. If your mind wanders, gently bring your focus back to your breath. Another powerful practice is mindful observation, which involves carefully observing a single object, like a leaf or a cup, noticing its textures, colors, and details. Practicing mindfulness exercises daily for even 5-10 minutes can improve emotional regulation and foster a deeper connection with your surroundings.')">
+          <div class="icon icon-leaf"></div>
+          <p>Mindfulness Exercises</p>
+        </div>
+        <div class="card"
+          onclick="showPopup(`Stress management involves adopting practices that reduce mental and physical tension. One helpful technique is the STOP method: Stop what you are doing, Take a breath, Observe your thoughts and feelings without judgment, and Proceed with awareness. Regular physical activity, like yoga or brisk walking, can also help by releasing endorphins, the body’s natural stress relievers. Additionally, setting boundaries and learning to say 'no' prevents overcommitment, which is a common source of stress. Remember, effective stress management is about balance, so make time for relaxation and hobbies.`)">
+          <div class="icon icon-meditation"></div>
+          <p>Stress Management</p>
+        </div>
+        <div class="card"
+          onclick="showPopup('Daily affirmations can transform negative thinking patterns and reinforce self-confidence. Start your day by standing in front of a mirror and repeating affirmations like, “I am resilient and capable of handling challenges,” or “I am deserving of happiness and peace.” Writing affirmations in a journal is another powerful method, allowing you to reflect on and internalize them. To make affirmations more impactful, ensure they align with your values and goals, and repeat them with intention. Over time, affirmations can reframe your mindset and enhance your emotional well-being.')">
+          <div class="icon icon-rainbow"></div>
+          <p>Daily Affirmations</p>
+        </div>
+        <div class="card"
+          onclick="showPopup('A healthy lifestyle is the foundation of good mental health. Focus on eating a balanced diet rich in whole foods like fruits, vegetables, lean proteins, and whole grains to nourish your body and brain. Incorporating regular exercise, such as 30 minutes of walking or dancing, can improve mood and energy levels. Quality sleep is equally essential—aim for 7-8 hours nightly by creating a calming bedtime routine, like dimming lights and limiting screen time. Finally, stay hydrated and manage your caffeine intake to keep your energy steady throughout the day.')">
+          <div class="icon icon-sun"></div>
+          <p>Healthy Lifestyle</p>
+        </div>
+        <div class="card"
+          onclick="showPopup('Building healthy habits is all about starting small and staying consistent. Focus on one habit at a time, like drinking more water or getting 15 minutes of sunlight daily. Once it becomes second nature, add another. Habit stacking—pairing a new habit with an existing one—can be effective, such as meditating after brushing your teeth or stretching before bed. Tracking your progress, whether through a journal or an app, helps reinforce accountability and provides a sense of accomplishment. Remember, it’s okay to stumble; what matters most is persistence. Over time, these small, intentional steps lead to long-lasting improvements in your physical and mental health.')">
+          <div class="icon icon-heart"></div>
+          <p>Healthy Habits</p>
+        </div>
+        <div class="card"
+          onclick="showPopup('Incorporating mindfulness into your day doesn’t have to be complicated. Start by taking short pauses to breathe deeply and check in with yourself during moments of stress or transition. Practice single-tasking—focus fully on one activity, like eating a meal or writing an email, without distractions. When negative thoughts arise, observe them without judgment and let them pass, as if they were clouds floating across the sky. Try adding mindful moments to your routine, such as noticing the sensation of water during a shower or the sound of birds while walking. These simple tips cultivate presence and help anchor you to the moment, fostering peace and clarity.')">
+          <div class="icon icon-flower"></div>
+          <p>Mindfulness Tips</p>
+        </div>
+      </div>
+      <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+      <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content"></div>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+      </div>
+    </div>
+    <div class="containeri">
+      <h1>Testimonials</h1>
+      <div class="box">
+        <button class="button prev">
+          < </button>
+            <button class="button next">></button>
+            <div class="slide">
+              <div class="slide-item">
+                <h2>Ema H.</h2>
+                <p>
+                  "PsycheAI has been a life-changer for me. It provides a
+                  non-judgmental space where I can freely express my thoughts and
+                  emotions. The personalized tips and support I get help me manage
+                  my anxiety better."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Jon M.</h2>
+                <p>
+                  "I never thought I’d find a platform that blends technology and
+                  mental health so well. PsycheAI has helped me track my mood, and
+                  the advice I get is always spot on. It’s like having a virtual
+                  therapist in my pocket."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Sara L.</h2>
+                <p>
+                  "As someone who struggles with depression, PsycheAI has been an
+                  invaluable resource. I can talk to it whenever I need, and the
+                  insights it provides have made a significant difference in my
+                  daily life."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>David T.</h2>
+                <p>
+                  "The AI in PsycheAI is so responsive and empathetic. It’s like
+                  having a supportive friend who always knows the right things to
+                  say. It’s helped me reduce my stress levels and improve my
+                  mental health."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Olivia K.</h2>
+                <p>
+                  "PsycheAI has allowed me to gain a better understanding of my
+                  emotions. The emotional analysis feature is a game-changer, and
+                  it’s great to have access to professional help when I need it
+                  most."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Mikel P.</h2>
+                <p>
+                  "I was skeptical at first, but after using PsycheAI for a few
+                  weeks, I’m a believer. The combination of AI-driven insights and
+                  access to real psychologists is exactly what I need to manage my
+                  stress."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Lili C.</h2>
+                <p>
+                  "What I love most about PsycheAI is that it feels like it was
+                  designed just for me. It adapts to my needs and provides useful
+                  coping strategies. It’s helped me stay grounded during tough
+                  times."
+                </p>
+              </div>
+              <div class="slide-item">
+                <h2>Arben R.</h2>
+                <p>
+                  "I’ve tried several mental health apps, but none of them compare
+                  to PsycheAI. It’s so easy to use, and I feel more in control of
+                  my mental health. The daily check-ins are a great way to stay on
+                  top of my emotional well-being."
+                </p>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    hamburger.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
+    function showPopup(content) {
+      document.getElementById("popup-content").innerText = content;
+      document.getElementById("popup").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    // Select elements
+    const slideCont = document.querySelector(".slide");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+    const slides = document.querySelectorAll(".slide-item"); // Update this selector
+    let imgIdx = 0;
+    let auto = true;
+    const timer = 5000;
+    let timerFunc;
+
+    const resetInterval = () => {
+      if (timerFunc !== undefined) {
+        clearInterval(timerFunc);
+      }
+      timerFunc = setInterval(() => {
+        next();
+      }, timer);
+    };
+
+    /**
+     *@NOTE
+     *Since it moving towards the left side we have to use a negative number
+     *Since we are translating our slide -100% each, then multiplying -100% to the current imgIdx should work
+     */
+
+    const next = () => {
+      resetInterval();
+      imgIdx >= slides.length - 1 ? (imgIdx = 0) : (imgIdx += 1);
+      slideCont.style.transform = `translateX(${-100 * imgIdx}%)`;
+    };
+
+    nextBtn.addEventListener("click", (e) => {
+      next();
+    });
+
+    const prev = () => {
+      resetInterval();
+      imgIdx <= 0 ? (imgIdx = slides.length - 1) : (imgIdx -= 1);
+      slideCont.style.transform = `translateX(${-100 * imgIdx}%)`;
+    };
+
+    prevBtn.addEventListener("click", (e) => {
+      prev();
+    });
+
+    if (auto) {
+      const timerFunc = setInterval(() => {
+        next();
+      }, timer);
+    }
+  </script>
+</body>
+<footer class="footer">
+  <div class="footer-container">
+    <!-- About Us Column -->
+    <div class="footer-column">
+      <h3>About Us</h3>
+      <ul>
+        <li><a href="{{ url_for('about') }}">Who we are</a></li>
+        <li><a href="{{ url_for('functionality') }}">How it works</a></li>
+        <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+      </ul>
+    </div>
+
+    <!-- Support Column -->
+    <div class="footer-column">
+      <h3>Support</h3>
+      <ul>
+        <li><a href="{{ url_for('support') }}">Need any help?</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Column -->
+    <div class="footer-column">
+      <h3>Contact</h3>
+      <ul>
+        <li>Albania</li>
+        <li>PsycheAi@outlook.com</li>
+      </ul>
+    </div>
+
+    <!-- Apps Column -->
+    <div class="footer-column">
+      <h3>Apps</h3>
+      <ul>
+        <li>
+          <a href="https://www.apple.com/app-store/"><img class="d_logo1"
+              src="{{ url_for('static', filename='images/appstore.png') }}" alt="App Store" /></a>
+        </li>
+        <li>
+          <a href="https://play.google.com/store/games?device=windows&pli=1"><img class="d_logo2"
+              src="{{ url_for('static', filename='images/googleplay.jpg') }}" alt="Google Play" /></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="footer_div2">&copy; 2024 PsycheAI</div>
+</footer>
+
+</html>

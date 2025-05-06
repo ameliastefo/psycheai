@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PsycheAI</title>
+    <style>
+      .opportunity-section {
+        text-align: center;
+        padding: 80px 20px;
+        background-color: #d2ebf3;
+        /* Soft pink for emotional warmth */
+        color: #1f1f1f;
+        /* Contrasting text color */
+      }
+
+      .opportunity-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 0;
+        color: #002147;
+        /* Darker text for emphasis */
+      }
+
+      .opportunity-section p {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .section {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 200px;
+        padding: 40px;
+        background-color: #ffffff;
+        color: #333;
+      }
+
+      .text-content {
+        max-width: 400px;
+        padding: 20px;
+      }
+
+      .text-content h1 {
+        font-size: 2.5rem;
+        color: #002147;
+        margin-bottom: 20px;
+      }
+
+      .text-content p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+
+      .image-content img {
+        max-width: 350px;
+        border-radius: 15px;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .align {
+        text-align: left;
+        margin-top: 40px;
+        margin-left: 75px;
+        font-family: "Times New Roman", Times, serif;
+      }
+
+      .align-h1 {
+        font-size: 3rem;
+      }
+
+      .align-h3 {
+        font-size: 2rem;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      .div1 {
+        margin: 0;
+        padding: 0;
+        background-image: url("{{ url_for('static', filename='images/robot.png') }}");
+        background-size: cover;
+        background-position: right;
+        background-position: bottom;
+        background-repeat: no-repeat;
+        color: #002147;
+        font-size: 25px;
+        text-align: center;
+        height: 550px;
+      }
+
+      .papirus {
+        font-family: "Papyrus";
+      }
+
+      .copperplate {
+        font-family: "Copperplate";
+      }
+
+      /* General Header Styling */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 40px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Logo */
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+
+      /* Navigation Menu */
+      .nav-menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-menu li {
+        display: inline-block;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        transition: 0.3s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #002147;
+        /* Orange underline effect */
+        border-bottom: 2px solid #002147;
+        padding-bottom: 5px;
+      }
+
+      /* Hamburger Menu */
+      .hamburger {
+        display: none;
+        /* Initially hidden */
+        cursor: pointer;
+      }
+
+      .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: black;
+        margin: 5px 0;
+      }
+
+      .main-section {
+        padding: 50px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .footer_div2 {
+        text-align: center;
+        padding: 20px;
+        background-color: #f2f3f4;
+        color: #000;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .footer {
+        background-color: #f2f3f4;
+        color: #000;
+        padding-top: 3%;
+        padding-left: 15%;
+        padding-right: 15%;
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .footer-column {
+        flex: 1;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-column ul li {
+        margin-top: 15px;
+      }
+
+      .footer-column ul li a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      .footer-column ul li a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-column ul li img {
+        max-width: 120px;
+        margin-bottom: 10px;
+      }
+
+      .d_logo1 {
+        width: 100px;
+        height: auto;
+      }
+
+      .d_logo2 {
+        width: 250px;
+        height: auto;
+        margin-left: -5px;
+      }
+
+      .text-decoration {
+        text-decoration: none;
+        color: #002147;
+      }
+
+      .text-decoration :hover {
+        color: #002147;
+      }
+
+      .banner {
+        margin-left: 510px;
+        width: 700px;
+        height: auto;
+      }
+
+      .container2 {
+        display: flex;
+        padding-top: 65px;
+        padding-bottom: 20px;
+        padding-left: 100px;
+        padding-right: 100px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 545px;
+      }
+
+      .text-section {
+        flex: 1;
+        padding: 20px;
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 40%;
+        padding-left: 50px;
+      }
+
+      .text-section h1 {
+        font-size: 2rem;
+        margin: 0;
+        color: #035c85;
+      }
+
+      .text-section p {
+        font-size: 1.2rem;
+        width: 390px;
+        margin-top: 20px;
+        line-height: 2rem;
+      }
+
+      .text-section ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .text-section ul li {
+        margin: 10px 0;
+        font-size: 1.2rem;
+      }
+
+      .text-section ul li::before {
+        content: "•";
+        color: black;
+        font-size: 1.5rem;
+        margin-right: 10px;
+      }
+
+      .text-section a {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #202641;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        width: 50%;
+        margin-left: 200px;
+      }
+
+      .text-section a:hover {
+        background-color: #333;
+      }
+
+      .image-section {
+        flex: 1;
+        background-image: url("{{ url_for('static', filename='images/therapy.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px;
+        height: 420px;
+        width: 420px;
+      }
+
+      .vertical-hr {
+        width: 1px;
+        height: 120px;
+        background-color: #333;
+        border: none;
+        transform: rotate(180deg);
+        margin-left: 430px;
+        margin-top: -120px;
+      }
+
+      .hr {
+        width: 120px;
+        height: 1px;
+        background-color: #333;
+        border: none;
+        margin-left: 310px;
+        margin-top: 50px;
+      }
+
+      .why-psycheai {
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 48px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        color: #002147;
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        width: 280px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card h3 {
+        font-size: 24px;
+        margin: 15px 0 10px;
+        color: #035c85;
+      }
+
+      .card p {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media screen and (min-width: 600px) and (max-width: 1024px) {
+        .footer {
+          padding-left: 8%;
+          padding-right: 0%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .div1 {
+          margin: 0;
+          padding: 0;
+          background-image: none;
+          background-color: #d2ebf3;
+          color: #002147;
+          font-size: 25px;
+          text-align: center;
+          height: 500px;
+        }
+
+        .text-section p {
+        width: 320px;
+      }
+      .text-section{
+        margin-left: 0px;
+      }
+
+        .main-section {
+          padding: 0;
+        }
+
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 60px;
+          /* Adjust this if the navbar height is different */
+          left: 0;
+          background: white;
+          width: 100%;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          padding: 0;
+          z-index: 999;
+          /* Ensures the dropdown appears above other elements */
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .nav-menu li {
+          width: 100%;
+          border-bottom: 1px solid #ddd;
+        }
+
+        .nav-menu li:last-child {
+          border-bottom: none;
+        }
+
+        .nav-link {
+          display: block;
+          padding: 15px 20px;
+          color: #333;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+          background-color: #f0f0f0;
+          color: #002147;
+          border-bottom: none;
+        }
+
+        .footer_div2 {
+          text-align: center;
+          padding: 20px;
+          background-color: #f2f3f4;
+          color: #000;
+          position: relative;
+          bottom: 0;
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .footer {
+          background-color: #f2f3f4;
+          color: #000;
+          padding: 3% 5%;
+        }
+
+        .footer-container {
+          display: flex;
+          justify-content: space-between;
+          max-width: 1200px;
+          margin: auto;
+          flex-wrap: wrap;
+        }
+
+        .footer-column {
+          flex: 1;
+          min-width: 200px;
+          margin-bottom: 20px;
+          text-align: left;
+        }
+
+        .footer-column h3 {
+          margin-bottom: 10px;
+          font-size: 1rem;
+        }
+
+        .footer-column ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        .footer-column ul li {
+          margin-top: 15px;
+        }
+
+        .footer-column ul li a {
+          color: #000;
+          text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+          text-decoration: underline;
+        }
+
+        .footer-column ul li img {
+          max-width: 120px;
+          margin-bottom: 10px;
+        }
+
+        .d_logo1 {
+          width: 100px;
+          height: auto;
+        }
+
+        .d_logo2 {
+          width: 250px;
+          height: auto;
+          margin-left: -5px;
+        }
+
+        .footer-container {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-column {
+          width: 100%;
+          text-align: center;
+        }
+
+        .d_logo1,
+        .d_logo2 {
+          display: block;
+          margin: auto;
+        }
+
+        .d_logo1 {
+          width: 95px;
+          height: 33px;
+          margin-top: -47px;
+        }
+
+        .d_logo2 {
+          width: 95px;
+          height: 42px;
+        }
+
+        .footer-column ul {
+          padding-left: 0;
+        }
+
+        .footer-column ul li {
+          display: inline-block;
+          margin: 5px 10px;
+        }
+
+        .div1 {
+          height: 600px;
+        }
+
+        .image-section {
+          border-radius: 0px;
+          width: 390px;
+        }
+
+        .container2 {
+          display: contents;
+        }
+
+        .text-section h1 {
+          font-size: 1.8rem;
+          width: 260px;
+        }
+        .hr {
+          margin-left: 0px;
+          visibility: hidden;
+        }
+        .vertical-hr {
+          margin-left: 0px;
+          visibility: hidden;
+        }
+        .card {
+          width: 368px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="div1">
+      <header>
+        <a href="{{ url_for('home_psyche1') }}" class="logo">PsycheAI</a>
+        <nav>
+          <ul class="nav-menu">
+            <li>
+              <a class="nav-link" href="{{ url_for('messagess')}}">Messages</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{{ url_for('videocall')}}">Videochat</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{{ url_for('calendar')}}">Calendar</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{{ url_for('psychologist_acc')}}"
+                >Account</a
+              >
+            </li>
+          </ul>
+          <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </nav>
+      </header>
+
+      <section class="main-section">
+        <h1 class="align align-h1">Welcome to PsycheAI</h1>
+        <h3 class="align align-h3">
+          Together, We Empower Lives <br />and Build Emotional Resilience.
+        </h3>
+      </section>
+    </div>
+
+    <div class="container2">
+      <div class="image-section"></div>
+      <div class="text-section">
+        <h1>Make a Difference as a Psychologist</h1>
+        <p>
+          Connect with individuals who need emotional support and guidance. Help
+          them overcome challenges and lead better lives—all from the comfort of
+          your own space.
+        </p>
+        <hr class="hr" />
+        <hr class="vertical-hr" />
+      </div>
+    </div>
+
+    <section class="opportunity-section">
+      <h1>Opportunities You’ll Love. Guaranteed.</h1>
+      <p>
+        Expand your client base, set your own schedule, and grow your practice
+        with ease. Join a platform that connects psychologists like you with
+        individuals who need your guidance.
+      </p>
+    </section>
+
+    <section class="why-psycheai">
+      <h2 class="section-title">Why Work at PsycheAI</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Cutting-Edge Innovation</h3>
+          <p>
+            Be part of a team driving the future of mental health with
+            AI-powered tools and solutions.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Personal & Professional Growth</h3>
+          <p>
+            Access continuous learning, mentorship, and exciting challenges that
+            help you grow every day.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Inclusive Culture</h3>
+          <p>
+            Thrive in a supportive environment that values diversity, empathy,
+            and collaboration.
+          </p>
+        </div>
+      </div>
+    </section>
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+    </script>
+  </body>
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- About Us Column -->
+      <div class="footer-column">
+        <h3>About Us</h3>
+        <ul>
+          <li><a href="{{ url_for('about') }}">Who we are</a></li>
+          <li><a href="{{ url_for('functionality') }}">How it works</a></li>
+          <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Column -->
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="{{ url_for('support') }}">Need any help?</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div class="footer-column">
+        <h3>Contact</h3>
+        <ul>
+          <li>Albania</li>
+          <li>PsycheAi@outlook.com</li>
+        </ul>
+      </div>
+
+      <!-- Apps Column -->
+      <div class="footer-column">
+        <h3>Apps</h3>
+        <ul>
+          <li>
+            <a href="https://www.apple.com/app-store/"
+              ><img
+                class="d_logo1"
+                src="{{ url_for('static', filename='images/appstore.png') }}"
+                alt="App Store"
+            /></a>
+          </li>
+          <li>
+            <a href="https://play.google.com/store/games?device=windows&pli=1"
+              ><img
+                class="d_logo2"
+                src="{{ url_for('static', filename='images/googleplay.jpg') }}"
+                alt="Google Play"
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div class="footer_div2">&copy; 2024 PsycheAI</div>
+  </footer>
+</html>
