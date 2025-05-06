@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviews</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f2f3f4;
+      }
+      .div1 {
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .text-decoration {
+        text-decoration: none;
+        color: #002147;
+      }
+      .text-decoration :hover {
+        color: #002147;
+      }
+      /*Main Section*/
+      .testimonial-section {
+        text-align: center;
+        padding: 40px;
+      }
+
+      .testimonial-section h1 {
+        font-size: 35px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #002147;
+      }
+
+      .testimonial-section p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .testimonial-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100px;
+        position: relative;
+      }
+
+      .arrow {
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: #333;
+        cursor: pointer;
+      }
+
+      .testimonial-card {
+        width: 60%;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+      }
+
+      .profile {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .profile img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid #548a70;
+      }
+
+      .quote {
+        font-size: 16px;
+        color: #333;
+        margin: 20px 0;
+      }
+
+      .author {
+        font-size: 14px;
+        color: #777;
+      }
+
+      .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background-color: #ddd;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        background-color: #7daa93;
+      }
+      /* Footer */
+      footer {
+        background-color: #f2f3f4;
+        color: #000;
+        padding-top: 3%;
+        padding-left: 15%;
+        padding-right: 15%;
+      }
+      .footer_div2 {
+        text-align: center;
+        padding: 20px;
+        background-color: #f2f3f4;
+        color: #000;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: 10px;
+      }
+      @media screen and (min-width: 600px) and (max-width: 1024px) {
+        .testimonial-card {
+          padding: 75px;
+        }
+        .profile img {
+          width: 120px;
+          height: 120px;
+        }
+        .testimonial-section p {
+          font-size: 23px;
+        }
+      }
+      @media (max-width: 768px) {
+        body {
+          line-height: 1.6;
+        }
+        .testimonial-section {
+          padding-top: 0;
+        }
+        .testimonial-card {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">
+      <header class="header">
+        <a href="{{ url_for('main')}}" class="text-decoration"
+          ><div class="logo">PsycheAI</div></a
+        >
+      </header>
+    </div>
+    <section class="testimonial-section">
+      <h1>What Our Customers Say</h1>
+      <p>See how PsycheAI customers feel about their experiences.</p>
+
+      <div class="testimonial-container">
+        <button class="arrow left-arrow" onclick="changeTestimonial(-1)">
+          &#8249;
+        </button>
+        <div class="testimonial-card">
+          <div class="profile">
+            <img
+              id="profile-img"
+              src="{{ url_for('static', filename='images/customer-1.jpg') }}"
+              alt="Customer Photo"
+            />
+          </div>
+          <p class="quote" id="quote">
+            “PsycheAI has been a game-changer for my mental well-being. The AI
+            chat feature helps me process my thoughts, and the personalized tips
+            always feel spot-on.”
+          </p>
+          <p class="author" id="author">
+            <strong>PATRICIA PORTIK</strong><br />
+          </p>
+        </div>
+        <button class="arrow right-arrow" onclick="changeTestimonial(1)">
+          &#8250;
+        </button>
+      </div>
+
+      <div class="dots">
+        <span class="dot active" onclick="changeTestimonial(0)"></span>
+        <span class="dot" onclick="changeTestimonial(1)"></span>
+        <span class="dot" onclick="changeTestimonial(2)"></span>
+      </div>
+    </section>
+    <footer class="footer">
+      <hr />
+      <div class="footer_div2">&copy; 2024 PsycheAI</div>
+    </footer>
+    <script>
+      const testimonials = [
+        {
+          img: "{{ url_for('static', filename='images/customer-1.jpg') }}",
+          quote:
+            "“PsycheAI has been a game-changer for my mental well-being. The AI chat feature helps me process my thoughts, and the personalized tips always feel spot-on.”",
+          author: "<strong>PATRICIA PORTIK</strong><br>",
+        },
+        {
+          img: "{{ url_for('static', filename='images/customer-2.jpg') }}",
+          quote:
+            "“As a busy mom and teacher, it's hard to find time for myself. PsycheAI has provided me with quick, effective relaxation techniques that fit into my daily routine, making a real difference in my stress levels.”",
+          author: "<strong>JOHN DOE</strong><br>",
+        },
+        {
+          img: "{{ url_for('static', filename='images/customer-3.jpg') }}",
+          quote:
+            "“I’ve always struggled to talk about my emotions, but the platform’s psychologist consultations have made it so much easier for me to open up and get the support I need.”",
+          author: "<strong>JANE SMITH</strong><br>",
+        },
+      ];
+
+      let currentTestimonial = 0;
+
+      function changeTestimonial(direction) {
+        if (typeof direction === "number") {
+          currentTestimonial =
+            (currentTestimonial + direction + testimonials.length) %
+            testimonials.length;
+        } else {
+          currentTestimonial = direction; // Dot click
+        }
+
+        document.getElementById("profile-img").src =
+          testimonials[currentTestimonial].img;
+        document.getElementById("quote").textContent =
+          testimonials[currentTestimonial].quote;
+        document.getElementById("author").innerHTML =
+          testimonials[currentTestimonial].author;
+
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentTestimonial);
+        });
+      }
+    </script>
+  </body>
+</html>
